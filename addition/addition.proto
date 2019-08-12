@@ -2,15 +2,15 @@ syntax = "proto3";
 
 package addition;
 
-message AddRequest {
-    int32 number = 1;
-    int32 anotherNumber = 2;
+message GenerateRequest {
+    bytes attributes = 1;
 }
 
-message AddResponse {
-    int64 sum = 1;
+message GenerateResponse {
+    bytes result = 1;
 }
 
-service Addition {
-    rpc Add (AddRequest) returns (AddResponse) {}
+service GCD {
+    rpc Generate (GenerateRequest) returns (GenerateResponse) {
+    }
 }

@@ -3,13 +3,14 @@
 
 package addition
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
-
 import (
-	context "golang.org/x/net/context"
+	context "context"
+	fmt "fmt"
+	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
+	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -21,95 +22,105 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type AddRequest struct {
-	Number               int32    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
-	AnotherNumber        int32    `protobuf:"varint,2,opt,name=anotherNumber,proto3" json:"anotherNumber,omitempty"`
+type GenerateRequest struct {
+	Attributes           []byte   `protobuf:"bytes,1,opt,name=attributes,proto3" json:"attributes,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AddRequest) Reset()         { *m = AddRequest{} }
-func (m *AddRequest) String() string { return proto.CompactTextString(m) }
-func (*AddRequest) ProtoMessage()    {}
-func (*AddRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_addition_e8e9aaf77310b131, []int{0}
-}
-func (m *AddRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddRequest.Unmarshal(m, b)
-}
-func (m *AddRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddRequest.Marshal(b, m, deterministic)
-}
-func (dst *AddRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddRequest.Merge(dst, src)
-}
-func (m *AddRequest) XXX_Size() int {
-	return xxx_messageInfo_AddRequest.Size(m)
-}
-func (m *AddRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddRequest.DiscardUnknown(m)
+func (m *GenerateRequest) Reset()         { *m = GenerateRequest{} }
+func (m *GenerateRequest) String() string { return proto.CompactTextString(m) }
+func (*GenerateRequest) ProtoMessage()    {}
+func (*GenerateRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a9e7dbd1dd38dde4, []int{0}
 }
 
-var xxx_messageInfo_AddRequest proto.InternalMessageInfo
+func (m *GenerateRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GenerateRequest.Unmarshal(m, b)
+}
+func (m *GenerateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GenerateRequest.Marshal(b, m, deterministic)
+}
+func (m *GenerateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GenerateRequest.Merge(m, src)
+}
+func (m *GenerateRequest) XXX_Size() int {
+	return xxx_messageInfo_GenerateRequest.Size(m)
+}
+func (m *GenerateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GenerateRequest.DiscardUnknown(m)
+}
 
-func (m *AddRequest) GetNumber() int32 {
+var xxx_messageInfo_GenerateRequest proto.InternalMessageInfo
+
+func (m *GenerateRequest) GetAttributes() []byte {
 	if m != nil {
-		return m.Number
+		return m.Attributes
 	}
-	return 0
+	return nil
 }
 
-func (m *AddRequest) GetAnotherNumber() int32 {
-	if m != nil {
-		return m.AnotherNumber
-	}
-	return 0
-}
-
-type AddResponse struct {
-	Sum                  int64    `protobuf:"varint,1,opt,name=sum,proto3" json:"sum,omitempty"`
+type GenerateResponse struct {
+	Result               []byte   `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AddResponse) Reset()         { *m = AddResponse{} }
-func (m *AddResponse) String() string { return proto.CompactTextString(m) }
-func (*AddResponse) ProtoMessage()    {}
-func (*AddResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_addition_e8e9aaf77310b131, []int{1}
-}
-func (m *AddResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddResponse.Unmarshal(m, b)
-}
-func (m *AddResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddResponse.Marshal(b, m, deterministic)
-}
-func (dst *AddResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddResponse.Merge(dst, src)
-}
-func (m *AddResponse) XXX_Size() int {
-	return xxx_messageInfo_AddResponse.Size(m)
-}
-func (m *AddResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddResponse.DiscardUnknown(m)
+func (m *GenerateResponse) Reset()         { *m = GenerateResponse{} }
+func (m *GenerateResponse) String() string { return proto.CompactTextString(m) }
+func (*GenerateResponse) ProtoMessage()    {}
+func (*GenerateResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a9e7dbd1dd38dde4, []int{1}
 }
 
-var xxx_messageInfo_AddResponse proto.InternalMessageInfo
+func (m *GenerateResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GenerateResponse.Unmarshal(m, b)
+}
+func (m *GenerateResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GenerateResponse.Marshal(b, m, deterministic)
+}
+func (m *GenerateResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GenerateResponse.Merge(m, src)
+}
+func (m *GenerateResponse) XXX_Size() int {
+	return xxx_messageInfo_GenerateResponse.Size(m)
+}
+func (m *GenerateResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GenerateResponse.DiscardUnknown(m)
+}
 
-func (m *AddResponse) GetSum() int64 {
+var xxx_messageInfo_GenerateResponse proto.InternalMessageInfo
+
+func (m *GenerateResponse) GetResult() []byte {
 	if m != nil {
-		return m.Sum
+		return m.Result
 	}
-	return 0
+	return nil
 }
 
 func init() {
-	proto.RegisterType((*AddRequest)(nil), "addition.AddRequest")
-	proto.RegisterType((*AddResponse)(nil), "addition.AddResponse")
+	proto.RegisterType((*GenerateRequest)(nil), "addition.GenerateRequest")
+	proto.RegisterType((*GenerateResponse)(nil), "addition.GenerateResponse")
+}
+
+func init() { proto.RegisterFile("addition.proto", fileDescriptor_a9e7dbd1dd38dde4) }
+
+var fileDescriptor_a9e7dbd1dd38dde4 = []byte{
+	// 146 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4b, 0x4c, 0x49, 0xc9,
+	0x2c, 0xc9, 0xcc, 0xcf, 0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x80, 0xf1, 0x95, 0x0c,
+	0xb9, 0xf8, 0xdd, 0x53, 0xf3, 0x52, 0x8b, 0x12, 0x4b, 0x52, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b,
+	0x4b, 0x84, 0xe4, 0xb8, 0xb8, 0x12, 0x4b, 0x4a, 0x8a, 0x32, 0x93, 0x4a, 0x4b, 0x52, 0x8b, 0x25,
+	0x18, 0x15, 0x18, 0x35, 0x78, 0x82, 0x90, 0x44, 0x94, 0xb4, 0xb8, 0x04, 0x10, 0x5a, 0x8a, 0x0b,
+	0xf2, 0xf3, 0x8a, 0x53, 0x85, 0xc4, 0xb8, 0xd8, 0x8a, 0x52, 0x8b, 0x4b, 0x73, 0x4a, 0xa0, 0xea,
+	0xa1, 0x3c, 0x23, 0x2f, 0x2e, 0x66, 0x77, 0x67, 0x17, 0x21, 0x67, 0x2e, 0x0e, 0x98, 0x16, 0x21,
+	0x49, 0x3d, 0xb8, 0x63, 0xd0, 0x6c, 0x96, 0x92, 0xc2, 0x26, 0x05, 0xb1, 0x41, 0x89, 0x21, 0x89,
+	0x0d, 0xec, 0x76, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x58, 0xae, 0xf3, 0xd8, 0xcd, 0x00,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -120,82 +131,74 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// AdditionClient is the client API for Addition service.
+// GCDClient is the client API for GCD service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type AdditionClient interface {
-	Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error)
+type GCDClient interface {
+	Generate(ctx context.Context, in *GenerateRequest, opts ...grpc.CallOption) (*GenerateResponse, error)
 }
 
-type additionClient struct {
+type gCDClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewAdditionClient(cc *grpc.ClientConn) AdditionClient {
-	return &additionClient{cc}
+func NewGCDClient(cc *grpc.ClientConn) GCDClient {
+	return &gCDClient{cc}
 }
 
-func (c *additionClient) Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error) {
-	out := new(AddResponse)
-	err := c.cc.Invoke(ctx, "/addition.Addition/Add", in, out, opts...)
+func (c *gCDClient) Generate(ctx context.Context, in *GenerateRequest, opts ...grpc.CallOption) (*GenerateResponse, error) {
+	out := new(GenerateResponse)
+	err := c.cc.Invoke(ctx, "/addition.GCD/Generate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AdditionServer is the server API for Addition service.
-type AdditionServer interface {
-	Add(context.Context, *AddRequest) (*AddResponse, error)
+// GCDServer is the server API for GCD service.
+type GCDServer interface {
+	Generate(context.Context, *GenerateRequest) (*GenerateResponse, error)
 }
 
-func RegisterAdditionServer(s *grpc.Server, srv AdditionServer) {
-	s.RegisterService(&_Addition_serviceDesc, srv)
+// UnimplementedGCDServer can be embedded to have forward compatible implementations.
+type UnimplementedGCDServer struct {
 }
 
-func _Addition_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddRequest)
+func (*UnimplementedGCDServer) Generate(ctx context.Context, req *GenerateRequest) (*GenerateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Generate not implemented")
+}
+
+func RegisterGCDServer(s *grpc.Server, srv GCDServer) {
+	s.RegisterService(&_GCD_serviceDesc, srv)
+}
+
+func _GCD_Generate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdditionServer).Add(ctx, in)
+		return srv.(GCDServer).Generate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/addition.Addition/Add",
+		FullMethod: "/addition.GCD/Generate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdditionServer).Add(ctx, req.(*AddRequest))
+		return srv.(GCDServer).Generate(ctx, req.(*GenerateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Addition_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "addition.Addition",
-	HandlerType: (*AdditionServer)(nil),
+var _GCD_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "addition.GCD",
+	HandlerType: (*GCDServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Add",
-			Handler:    _Addition_Add_Handler,
+			MethodName: "Generate",
+			Handler:    _GCD_Generate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "addition.proto",
-}
-
-func init() { proto.RegisterFile("addition.proto", fileDescriptor_addition_e8e9aaf77310b131) }
-
-var fileDescriptor_addition_e8e9aaf77310b131 = []byte{
-	// 155 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4b, 0x4c, 0x49, 0xc9,
-	0x2c, 0xc9, 0xcc, 0xcf, 0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x80, 0xf1, 0x95, 0xbc,
-	0xb8, 0xb8, 0x1c, 0x53, 0x52, 0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0xc4, 0xb8, 0xd8,
-	0xf2, 0x4a, 0x73, 0x93, 0x52, 0x8b, 0x24, 0x18, 0x15, 0x18, 0x35, 0x58, 0x83, 0xa0, 0x3c, 0x21,
-	0x15, 0x2e, 0xde, 0xc4, 0xbc, 0xfc, 0x92, 0x8c, 0xd4, 0x22, 0x3f, 0x88, 0x34, 0x13, 0x58, 0x1a,
-	0x55, 0x50, 0x49, 0x9e, 0x8b, 0x1b, 0x6c, 0x56, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0xaa, 0x90, 0x00,
-	0x17, 0x73, 0x71, 0x69, 0x2e, 0xd8, 0x24, 0xe6, 0x20, 0x10, 0xd3, 0xc8, 0x81, 0x8b, 0xc3, 0x11,
-	0x6a, 0xb1, 0x90, 0x09, 0x17, 0xb3, 0x63, 0x4a, 0x8a, 0x90, 0x88, 0x1e, 0xdc, 0x69, 0x08, 0x77,
-	0x48, 0x89, 0xa2, 0x89, 0x42, 0x4c, 0x54, 0x62, 0x48, 0x62, 0x03, 0xbb, 0xdf, 0x18, 0x10, 0x00,
-	0x00, 0xff, 0xff, 0x10, 0xc8, 0x37, 0xe9, 0xd1, 0x00, 0x00, 0x00,
 }
